@@ -33,22 +33,23 @@ class page_base {
 		echo'
 				<div id="menu">
 <dl>
-	<dt>Accueil</dt>
+	<a href="index.php" ><dt>Accueil</dt></a>
 		<dd>
 			<ul>
 				
-				<li></li>
+				<li><a href="">Questions</a></li>
 				
 			</ul>
 				
 		</dd>
 </dl>
+				
 				<dl>
 	<dt>Consulter fichier Excel</dt>
 		<dd>
 			<ul>
 				
-				<li></li>
+				<li><a href="consultation.php">Consulter</a></li>
 				
 			</ul>
 				
@@ -60,7 +61,7 @@ class page_base {
 		<dd>
 			<ul>
 				
-				<li></li>
+				<li><a href="maj.php">MAJ<a/></li>
 				
 			</ul>
 				
@@ -100,7 +101,7 @@ class page_base {
 	}
 	public function footer()
 	{
-		
+		echo 'Projet SydPHP_Excel';
 	}
 	
 	public function afficher()
@@ -130,11 +131,13 @@ class page_base {
 		</div>
 		
 		<div class="row">
-		<?php echo $this->menu();?>
+		<div class="cold-md-10"><?php echo $this->menu();?></div>
+		
 		
 		</div>
 		
-		<div class="row">
+		<div class="row" id="space">
+		
 		  <div class="col-md-10">
 		  
 		<?php echo $this->corps;?>
@@ -143,7 +146,9 @@ class page_base {
 		
 		</body>
 		
-		<footer><?php echo $this->footer();?></footer>
+		        <div class="row">
+		           <footer class="footer"><?php echo $this->footer();?></footer>
+		       </div>
 		</div>
 		</html>
 		<?php 

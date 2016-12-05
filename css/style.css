@@ -6,10 +6,14 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+#space{
+	margin-top:150px;
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
+  margin-top:90px;
 }
 .form {
   position: relative;
@@ -126,13 +130,58 @@ float: left;
 }
 
 dt{
- font-size: 20px;
+	width:160px;
  	display:block;
 	height:40px;
 	color: black;
 	line-height:40px;
-	text-align:40px;
-	border-right:dotted 1px;
+	text-align:center;
+	border-right:dotted 2px white;
+	cursor: pointer;
+}
+
+dd{
+	display:block;
+	margin:0;padding:0;
+	background:url(../img/fond_vert.jpg);
+	
+}
+
+dd ul{
+	margin:0;padding:0;
+	text-align:center;
+	list-style:none;
+}
+
+dd ul li{
+		height:30px;
+}
+
+dd ul li a{
+	color: white;
+	display:block;
+	text-decoration:none;
+	height:30px;
+	line-height:30px;
+	border-top:dotted 2px white;
+}
+
+dd ul li a:hover{
+	
+	background:url(../img/fond_marron.jpg);
+	color:#fff;
+}
+
+dl dd{
+	display:none;
+}
+
+dl:hover dd{
+	display:block;
+}
+
+dl:hover a{
+	text-decoration:none;
 }
 /*****************************************************/
 
@@ -140,7 +189,19 @@ dt{
 
 /*****************************************************/
 
+/*****************Footer*****************/
 
+.footer {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+/*****************************************************/
 
 
 
