@@ -38,6 +38,7 @@ class page_base {
 			<ul>
 				
 				<li><a href="">Questions</a></li>
+				<li><a href="upload.php">Importer</a></li>
 				
 			</ul>
 				
