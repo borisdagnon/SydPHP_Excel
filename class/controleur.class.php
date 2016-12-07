@@ -45,16 +45,64 @@ class controleur{
 		$form="";
 		
 		$form.='
-				<h1>Bienvenu sur le site de mise à jour Excel<h1>
+				<h1><i>Bienvenu sur le site de mise &agrave; jour Excel</i><h1>
 				
-				<p>Ici vous pouvez mettre votre fichier Tables Sysderep_V2 à jour <p>
+				<p>Ici vous pouvez mettre votre fichier Tables Sysderep_V2 &agrave; jour <p>
 				
 				';
 		
 		return $form;
 	}
 	
+	public function consultation(){
+		$form="";
+		
+		require_once 'PHPExcel/IOFactory.php';
+		$file='uploads/Tables Syderep_V2.xlsx';
+		
+		// Chargement du fichier Excel
+		$objPHPExcel = PHPExcel_IOFactory::load($file);
+		
+		
+		/**
+		 * récupération de la première feuille du fichier Excel
+		 * @var PHPExcel_Worksheet $sheet
+		 */
+		$sheet = $objPHPExcel->getSheet(1);
 	
+		
+		$form.='
+				
+				<table border="1">';
+		
+		foreach ($sheet->getRowIterator() as $row){
+			
+			$form.='
+				<tr>
+					
+					';
+				
+				foreach ($row->getCellIterator() as $cell){
+					$form.='<td>'.$cell->getValue().'</td>';
+				}
+				
+				
+				
+				$form.='
+				</tr>
+			
+			
+				';
+			
+		}
+				$form.='
+		</table>
+			
+		';
+				
+				return $form;
+		
+	}
 	
 	
 	

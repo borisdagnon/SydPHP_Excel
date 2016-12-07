@@ -130,7 +130,7 @@ float: left;
 }
 
 dt{
-	width:160px;
+	width:180px;
  	display:block;
 	height:40px;
 	color: black;
@@ -189,10 +189,17 @@ dl:hover a{
 #upload_message{
 	display:block;
 	background-color:#e1dee4;
-	height:20px;
-
+	height:60px;
 	text-align:center;
+	text
 }
+#upload_message p{
+ font-family: "Arial Black", Times, serif;
+	font-size:25px;
+	margin-top:18px;
+	
+}
+
 /*****************************************************/
 
 /*****************Footer*****************/
@@ -212,10 +219,14 @@ dl:hover a{
 
 
 
+/*****************Tableau PHP pour fichier Excel*****************/
+#tab th{
+	text-align:center;
+	height:40px;
+padding: 20px;
+}
 
-
-
-
+/*****************************************************/
 
 
 

@@ -7,12 +7,14 @@ class mypdo{
 	private $hote='10.1.12.95';
 	
 	private $connexion;
-	
+
 	public function __construct(){
 		$message="";
 		try {
 	$this->connexion=new PDO('mysql:host='.$this->hote.';dbname='.$this->bdd.';charset=UTF8',$this->utilisateur,$this->mdp);
-				echo'OK';
+	
+		echo 'Connexion BDD OK';
+			
 		}
 		catch(PDOException $ex){
 			echo'NO';
