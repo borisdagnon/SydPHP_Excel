@@ -223,14 +223,18 @@ dl:hover a{
 #tab th{
 	text-align:center;
 	height:40px;
-padding: 20px;
+padding: 40px;
 }
 
 /*****************************************************/
 
 
-
-
+#maj_success{
+	display:none;
+}
+#maj_fail{
+	display:none;
+}
 
 
 

@@ -83,6 +83,7 @@ class controleur{
 					';
 				
 				foreach ($row->getCellIterator() as $cell){
+					
 					$form.='<td>'.$cell->getValue().'</td>';
 				}
 				
@@ -102,6 +103,42 @@ class controleur{
 				
 				return $form;
 		
+	}
+	
+	
+	public function maj(){
+		$form="";
+		
+		$form.='
+				<h3 align="center" >Cliquez pour mettre 	&agrave; jour le fichier</h3>
+			<button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour MAJ</button>
+				
+				
+				
+				
+				<div class="row" id="maj_success" >
+				<div class="col-md-4">
+				<div class="alert alert-success">
+  <strong>Success!</strong> MAJ effectu&eacute;e.
+</div>
+				</div>
+				</div>
+				
+				
+				
+				
+				<div class="row" id="maj_fail">
+				<div class="col-md-4">
+				<div class="alert alert-danger">
+  <strong>OUUPPSSS!</strong> MAJ erreur.
+</div>
+				</div>
+				</div>
+				
+				
+				<script src="js/maj.js"></script>
+				';
+		return $form;
 	}
 	
 	

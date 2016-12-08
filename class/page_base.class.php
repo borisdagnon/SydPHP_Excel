@@ -64,7 +64,7 @@ class page_base {
 		<dd>
 			<ul>
 				
-				<li><a href="maj.php">MAJ<a/></li>
+				<li><a href="maj.php">MAJ</a></li>
 				
 			</ul>
 				

@@ -1,8 +1,9 @@
 <?php
 
-include_once 'class/autoload.php';
-
-
+include_once '/class/controleur.class.php';
+include_once '/class/mypdo.class.php';
+include_once '/class/page_base.class.php';
+require_once '/class/PHPExcel/IOFactory.php';
 session_start();
 
 $controleur=null;
