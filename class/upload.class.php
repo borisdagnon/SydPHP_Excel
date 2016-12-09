@@ -29,13 +29,16 @@ class upload extends controleur{
 		
 		if(isset($_FILES['file']))
 		{
+			$post=array();
 			
 				$file=$_FILES['file'];
-					
+				
 				// Propriétés du fichier
 				$file_name=$file['name'];
 				$file_tmp=$file['tmp_name'];
+				array_push($post,$file['tmp_name']);
 				$file_size=$file['size'];
+				array_push($post, $file_size);
 				$file_error = $file['error'];
 				// Gestion de l'extension du fichier
 				
@@ -62,7 +65,8 @@ class upload extends controleur{
 								/* $file_name_new=uniqid('',true).'.'.$file_ext;/*On donne un nouveau nom unique au fichier*/
 								$file_name_new='Tables Syderep_V2'.'.'.$file_ext;
 								$file_destination='uploads/'.$file_name_new;/*On fait une concaténation avec le nom du nouveau fichier*/
-				
+				array_push($post, $file_destination='uploads/'.$file_name_new);
+			var_dump($post);
 								if (count(glob("uploads/*")) === 0 )/* Permet de savoir s'il y a déjà un fichier Excel dans le dossier uploads*/
 								 
 								{
@@ -77,11 +81,24 @@ class upload extends controleur{
 								}
 								else
 								{
-				
+									$post=implode(",", $post);
 									$form.='
 		   	
 		   	
-		   						<div class="row" id="upload_message"><p>Il existe d&eacute;j&agrave; un fichier </p><div>';
+		   						<div class="row" id="upload_message">
+											<div class="col-md-6">
+											<p>Il existe d&eacute;j&agrave; un fichier </p>
+											
+											
+											<button type="button" class="btn btn-success" type="submit" id="submit" value="'.$post.'">Remplacer</button>
+											
+											
+											</div>
+												</div>
+											
+						                 <script src="js/upload.js"></script>
+											
+											';
 									 
 								}
 				
