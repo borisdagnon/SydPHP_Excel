@@ -74,7 +74,8 @@ class controleur{
 		$form.='
 				
 				<table border="1">';
-		
+		$i=0;
+		$entete_tab="th";
 		foreach ($sheet->getRowIterator() as $row){
 			
 			$form.='
@@ -83,8 +84,15 @@ class controleur{
 					';
 				
 				foreach ($row->getCellIterator() as $cell){
+					if($i<=7){
+						$form.='<'.$entete_tab.'>'.$cell->getValue().'</'.$entete_tab.'>';
+					}
+					else {
+						$entete_tab="td";
+						$form.='<'.$entete_tab.'>'.$cell->getValue().'</'.$entete_tab.'>';
+					}
 					
-					$form.='<td>'.$cell->getValue().'</td>';
+					$i++;
 				}
 				
 				
