@@ -13,6 +13,11 @@ $site->__set('corps', $controleur->maj());
 
 $site->afficher();
 ?>
+<!--
+<<script type="text/javascript">
 
+setTimeout("location.reload(true);", 9000);
+
+</script>//-->
 
 <?php 

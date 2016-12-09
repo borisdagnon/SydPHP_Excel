@@ -151,8 +151,10 @@ class page_base {
 		
 		</body>
 		
-		        <div class="row">
-		           <footer class="footer"><?php echo $this->footer();?></footer>
+		        <div class="row" id="footer">
+		        <div class="col-md-12">
+		           <footer ><p><?php echo $this->footer();?></p></footer>
+		           </div>
 		       </div>
 		</div>
 		</html>

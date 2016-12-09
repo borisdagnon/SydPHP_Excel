@@ -114,14 +114,30 @@ class controleur{
 			<button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour MAJ</button>
 				
 				
+				<div id="display">
 				
+           <div class="row">
 				
-				<div class="row" id="maj_success" >
-				<div class="col-md-4">
+		       <div class="col-md-4 " >
+			       <div class="loader">	</div>
+					   </div>
+				
+				           <div class="col-md-4 col-md-push-1" >
+			                   <div class="loader">	</div>
+					       </div>
+				
+				<div class="col-md-4 col-md-push-2" >
+			       <div class="loader"></div>	
+		       </div>
+	</div>
+				</div>
+				
+				<div id="maj_success" >
+				
 				<div class="alert alert-success">
   <strong>Success!</strong> MAJ effectu&eacute;e.
 </div>
-				</div>
+			
 				</div>
 				
 				

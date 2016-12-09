@@ -8,6 +8,10 @@ class mypdo{
 	
 	private $connexion;
 
+	/**
+	 * Permet de créer un nouvel objet PDO
+	 * @return string
+	 */
 	public function __construct(){
 		$message="";
 		try {
@@ -24,6 +28,11 @@ class mypdo{
 		return $message;
 	}
 	
+	/**
+	 * 
+	 * @param string $prop
+	 * @return PDO
+	 */
 	public function __get($prop){
 		switch ($prop){
 			case 'connexion': return $this->connexion;
@@ -32,6 +41,11 @@ class mypdo{
 		
 	}
 	
+	/**
+	 * On va chercher le nom des tables et le nom des collones
+	 * @param array $tab contient le nom des tables extraites du fichier Excel
+	 * @return PDOStatement|NULL
+	 */
 	public function list_tables($tab)
 	{
 		
@@ -50,7 +64,11 @@ GROUP BY TABLE_NAME ORDER BY TABLE_NAME ASC
 			return null;
 	}
 	
-	
+	/**
+	 * On va chercher le nombre de liens
+	 * $param string $col_name
+	 * @return PDOStatement|NULL
+	 */
 	public function nb_liens($col_name){
 		
 		$requete='SELECT COUNT(COLUMN_NAME)-1

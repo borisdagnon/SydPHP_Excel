@@ -5,7 +5,11 @@
 		var $url="ajax/maj.php";
 		$("#maj_success").hide("slow");
 		$("#maj_fail").hide("slow");
-			
+		$("#display").show("slow");
+		
+		
+		
+	
 			var formData = {
 													   		
 			};	
@@ -19,10 +23,11 @@
 				encode          : true,
         		data: formData,	
 			});
+			
 			filterDataRequest.done(function(data)
 			{
 				if ( data.success)
-				{		
+				{		$("#display").hide("slow");
 					$("#maj_success").show("slow");
 				}
 				else
