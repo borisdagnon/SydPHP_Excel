@@ -206,9 +206,10 @@ dl:hover a{
 
 #footer {
 	height:30px;
-  position: absolute;
+  position: relative;
   right: 0;
   bottom: 0;
+
   left: 0;
   padding: 2rem;
   background-color: #bdc3c7;

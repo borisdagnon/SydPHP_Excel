@@ -72,7 +72,7 @@ class controleur{
 	
 		
 		$form.='
-				
+				<div class="row">
 				<table border="1">';
 		$i=0;
 		$entete_tab="th";
@@ -106,7 +106,7 @@ class controleur{
 		}
 				$form.='
 		</table>
-			
+			</div>
 		';
 				
 				return $form;
