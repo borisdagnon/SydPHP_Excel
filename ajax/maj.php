@@ -28,7 +28,7 @@ $mypdo=new mypdo();
 	
 	
 	/**
-	 * récupération de la deuxième feuille du fichier Excel
+	 * récupération de la deuxième feuille du fichier Excel car l'index part de 0
 	 * @var PHPExcel_Worksheet $sheet
 	 */
 	$sheet = $objPHPExcel->getSheet(1);
@@ -41,7 +41,7 @@ $mypdo=new mypdo();
 	$lastRow = $sheet->getHighestRow();
 	for ($row = 2; $row <= $lastRow; $row++) {
 		$cell = $sheet->getCell($column.$row);
-		$cell=$cell->getValue();
+		$cell=$cell->getValue();//On récupère la valeur de la cellule
 		array_push($data['result'], $cell);
 		array_push($tab, $cell);
 	
@@ -54,7 +54,7 @@ $mypdo=new mypdo();
 	
 	
 	/**
-	 * @param string $requete
+	 * @param string $requete Requête des liste de tables et colonnes
 	 */
 	if($requete){
 		
@@ -92,15 +92,68 @@ $mypdo=new mypdo();
 				);
 				$row++;
 		}
+		
+		
+		
+		
+		
+		
+/*********************Bordures et Couleur des cellules*************************/
+		$styleArray = array(
+			
+				'borders' => array(
+						'outline' => array(
+								'style' => PHPExcel_Style_Border::BORDER_THIN
+						),
+				)
+				
+		);
+		
+/****************************************************************************/
+		
+	
+		
+		
+		
+		
+		
+		
+		
+/*******************************************Insertion du nom des tables******************************************************/
+
+		$requete=$mypdo->tables();
+		$column='A';
+		$highestRow=$sheet->getHighestRow();
+		$row=2;
+		
+		while ($r=$requete->fetch()){
+			
+			$objPHPExcel->getActiveSheet()->setCellValue($column.$row,$r[0]);
+			array_push($data['Table_Name'], $r[0]);//Permet de voir ce qu'on récupère en Ajax
+			$row++;
+		}
+		
+/*************************************************************************************************/
+		
+
+		
+		
+		
+		
+		
+/*******************************************Écriture dans le fichier et sauvegarde******************************************************/
+		
 			//On crée un objet Excel pour écrire dans le fichier
 		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 $objWriter->save('../uploads/Tables Syderep_V2.xlsx');//On sauvegarde dans le même emplacement
+
 $data['success']=true;
 	}else 
 	{
 		$data['success']=false;
 	}
 
+/*************************************************************************************************/
 	
 
 echo json_encode($data);

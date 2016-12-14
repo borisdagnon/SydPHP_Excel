@@ -84,6 +84,20 @@ AND TABLE_SCHEMA="syderep_intcont"';
 		}
 		
 	}
+	
+	public function tables(){
+		$requete='SELECT DISTINCT TABLE_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+GROUP BY TABLE_NAME ORDER BY TABLE_NAME ASC';
+		$result=$this->connexion->query($requete);
+		
+		if($result){
+			return $result;
+		}else {
+			return null;
+		}
+		
+	}
 }
 
 

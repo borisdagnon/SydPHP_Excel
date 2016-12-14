@@ -41,6 +41,7 @@ class page_base {
 				
 				<li><a href="">Questions</a></li>
 				<li><a href="upload.php">Importer</a></li>
+				<li><a href="replace.php">Remplacer</a></li>
 				
 			</ul>
 				
@@ -65,6 +66,7 @@ class page_base {
 			<ul>
 				
 				<li><a href="maj.php">MAJ</a></li>
+				<li><a href="export.php">Exporter Excel</a></li>
 				
 			</ul>
 				

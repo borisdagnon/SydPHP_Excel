@@ -13,17 +13,33 @@ $mypdo=new mypdo();
 $tmp_destion=$_POST['data'];
 
 $tmp_destion=explode(",", $tmp_destion);
-
-
-if(move_uploaded_file($tmp_destion[0], $tmp_destion[2])){
-	$data['success']=true;
-	$data['result']=$tmp_destion[0];
+/*
+if(file_exists('../uploads/Tables Syderep_V2.xlsx')) {
+	chmod('../uploads/Tables Syderep_V2.xlsx',0755); //Change the file permissions if allowed
+	unlink('../uploads/Tables Syderep_V2.xlsx'); //remove the file
+	echo 'OK';
 }
-else
-{
+else {
+	echo 'OHH NNO';
+}
+*/
+$tmp_name='';
+try{
+	var_dump($tmp_destion);
+	if(move_uploaded_file(/*$tmp_destion[2]*/$tmp_destion[2],$tmp_destion[5])){
+		$data['success']=true;
 	
-	$data['result']=$tmp_destion[1];
+	}
+	else
+	{
+		throw new Exception('Could not move file');
+		
+	}
+}catch(Exception $ex)
+{
+	var_dump($ex->getMessage());
 }
+
 
 echo json_encode($data);
 

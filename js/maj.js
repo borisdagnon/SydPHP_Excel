@@ -1,4 +1,6 @@
-
+/**
+ * Cet document jQuery/ajax qui permet d'appeler la page PHP maj.php pour procéder à la mise à jour
+ */
 	$("#submit").on('click', function( e ){
         e.preventDefault();
 
@@ -40,13 +42,13 @@
 			filterDataRequest.fail(function(jqXHR, textStatus)
 			{
 				
-     			if (jqXHR.status === 0){alert("Not connect.n Verify Network.");}
-    			else if (jqXHR.status == 404){alert("Requested page not found. [404]");}
-				else if (jqXHR.status == 500){alert("Internal Server Error [500].");}
-				else if (textStatus === "parsererror"){alert("Requested JSON parse failed.");}
-				else if (textStatus === "timeout"){alert("Time out error.");}
-				else if (textStatus === "abort"){alert("Ajax request aborted.");}
-				else{alert("Uncaught Error.n" + jqXHR.responseText);}
+     			if (jqXHR.status === 0){alert("Not connect.n Verify Network.");$("#display").hide("slow");}
+    			else if (jqXHR.status == 404){alert("Requested page not found. [404]");$("#display").hide("slow");}
+				else if (jqXHR.status == 500){alert("Internal Server Error [500].");$("#display").hide("slow");}
+				else if (textStatus === "parsererror"){alert("Requested JSON parse failed.");$("#display").hide("slow");}
+				else if (textStatus === "timeout"){alert("Time out error.");$("#display").hide("slow");}
+				else if (textStatus === "abort"){alert("Ajax request aborted.");$("#display").hide("slow");}
+				else{alert("Uncaught Error.n" + jqXHR.responseText);$("#display").hide("slow");}
 			});
 		
 	});
