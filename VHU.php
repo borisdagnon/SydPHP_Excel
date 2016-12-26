@@ -10,9 +10,9 @@ $site=null;
 
 
 $controleur=new upload();
-$site=new page_base('Page Import');
+$site=new page_base('Comparaison Centres VHU');
 
-$site->__set('corps', $controleur->upload());
+$site->__set('corps', $controleur->VHU());
 
 $site->afficher();
 ?>

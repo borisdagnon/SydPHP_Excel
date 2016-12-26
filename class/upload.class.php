@@ -58,11 +58,13 @@ class upload extends controleur{
 				 
 				$allowed = array('xlsx');/*On défini les extensions autorisées dans un tableau*/
 				 
-				if($nom_comparant==$nom_compare)
-				{
 				
 					
 					if(in_array($file_ext, $allowed)){/*On vérifi si on a autorisé l'extension*/
+						
+						if($nom_comparant==$nom_compare)
+						{
+						
 				
 						if ($file_error===0)/* S'il n'y a pas d'erreur*/
 						{
@@ -114,12 +116,17 @@ class upload extends controleur{
 				
 						}
 				
+					}else {
+						
+						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V2.xlsx"</p><div>';
+						
+						
 					}
 				}
 				else
 				{
-					$form.='<div class="row" id="upload_message"><p>Vous devez renommer le fichier "Tables Syderep_V2"</p><div>';
-				}
+					$form	.='<div class="row" id="upload_message"><p> Vous devez s&eacute;lectionner un fichier Excel </p><div>';
+					}
 				
 		
 				
@@ -183,11 +190,15 @@ class upload extends controleur{
 					
 				$allowed = array('xlsx');/*On défini les extensions autorisées dans un tableau*/
 					
-				if($nom_comparant==$nom_compare)
-				{
 				
 						
 					if(in_array($file_ext, $allowed)){/*On vérifi si on a autorisé l'extension*/
+						
+						if($nom_comparant==$nom_compare)
+						{
+						
+						
+						
 				
 						if ($file_error===0)/* S'il n'y a pas d'erreur*/
 						{
@@ -204,10 +215,12 @@ class upload extends controleur{
 				
 									if(move_uploaded_file($file_tmp, $file_destination)){
 										$form.='<div class="row" id="upload_message"><p>Le fichier a &eacute;t&eacute; remplac&eacute; avec succ&egrave;s</p><div>';
+								
 									}
 									else
 									{
 										$form.='<div class="row" id="upload_message"><p>Erreur d\'import</p><div>';
+										
 									}
 										
 								}
@@ -218,15 +231,23 @@ class upload extends controleur{
 				
 						}
 				
+					}else 
+					{
+						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V2.xlsx"</p><div>';
 					}
 				}
 				else
 				{
-					$form.='<div class="row" id="upload_message"><p>Vous devez renommer le fichier "Tables Syderep_V2"</p><div>';
+					$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier Excel</p><div>';
+					
 				}
 				
 				
 			
+			
+			}
+			else {
+				$form.='<div class="row" id="upload_message"><p>Veuillez choisir un fichier SVP"</p><div>';
 			
 			}
 			return $form;

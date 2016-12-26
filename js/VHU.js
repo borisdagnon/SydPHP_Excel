@@ -1,14 +1,14 @@
 /**
- * Cet document jQuery/ajax qui permet d'appeler la page PHP maj.php pour procéder à la mise à jour
+ * Cet document jQuery/ajax qui permet d'appeler la page PHP VHU.php pour procéder à la mise à jour
  */
 	$("#submit").on('click', function( e ){
         e.preventDefault();
 
-		var $url="ajax/maj.php";
+		var $url="ajax/VHU.php";
 		$("#maj_success").hide("slow");
 		$("#maj_fail").hide("slow");
-		$("#display").show("slow");
-		
+	$("#display").show("slow");
+	
 		
 	
 	
@@ -23,14 +23,42 @@
         		url: $url,
         		dataType: "json",
 				encode          : true,
-        		data: formData,	
+        		data: formData
+        	   
 			});
+
 			
 			filterDataRequest.done(function(data)
 			{
+				
+$i=0;
 				if ( data.success)
-				{		$("#display").hide("slow");
+				{		
+
+$(data.live).each(function(index, value){
+$i++;
+/*
+$("<tr><td>"+$i+"        "+value[0]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[1]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[2]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[3]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[4]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[5]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[6]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[7]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[8]+"</td>").appendTo("#non_Exist");
+$("<td>"+value[9]+"</td></tr>").appendTo("#non_Exist");*/
+
+$("#non_Exist").append("<tr><td>"+value[0]+"</td>");
+
+			});
+$("#non_Exist").append("</tr></table>");
+
+					$("#display").hide("slow");
+			
 					$("#maj_success").show("slow");
+
+$("#non_Exist").show();
 				}
 				else
 				{

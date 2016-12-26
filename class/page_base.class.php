@@ -39,7 +39,7 @@ class page_base {
 		<dd>
 			<ul>
 				
-				<li><a href="">Questions</a></li>
+				<li><a href="question.php">Questions</a></li>
 				<li><a href="upload.php">Importer</a></li>
 				<li><a href="replace.php">Remplacer</a></li>
 				
@@ -67,6 +67,20 @@ class page_base {
 				
 				<li><a href="maj.php">MAJ</a></li>
 				<li><a href="export.php">Exporter Excel</a></li>
+				
+			</ul>
+				
+		</dd>
+</dl>
+
+
+		<dl>
+	<dt>Centre VHU</dt>
+		<dd>
+			<ul>
+				
+				<li><a href="VHU.php">Comparer Centres</a></li>
+				
 				
 			</ul>
 				

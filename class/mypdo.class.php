@@ -9,7 +9,7 @@ class mypdo{
 	private $connexion;
 
 	/**
-	 * Permet de cr�er un nouvel objet PDO
+	 * Permet de créer un nouvel objet PDO
 	 * @return string
 	 */
 	public function __construct(){
@@ -51,9 +51,9 @@ class mypdo{
 		
 			$requete='SELECT DISTINCT TABLE_NAME, COLUMN_NAME
 FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME  IN ("'.implode('", "', $tab).'")
+WHERE TABLE_NAME  IN ("'.$tab.'")
     AND TABLE_SCHEMA="syderep_intcont"
-GROUP BY TABLE_NAME ORDER BY TABLE_NAME ASC
+GROUP BY TABLE_NAME
 	';
 			$_SESSION['requete']=$requete;
 			/*var_dump($_SESSION['requete']);*/
@@ -85,10 +85,30 @@ AND TABLE_SCHEMA="syderep_intcont"';
 		
 	}
 	
-	public function tables(){
-		$requete='SELECT DISTINCT TABLE_NAME
-FROM INFORMATION_SCHEMA.COLUMNS
-GROUP BY TABLE_NAME ORDER BY TABLE_NAME ASC';
+	/**
+	 * Cette fonction récupère seulement le nom des tables
+	 * @return PDOStatement|NULL
+	 * @return result 
+	 */
+	public function tables($tab){
+		
+		$Exos_list=array();
+	array_push($Exos_list, 'CHARACTER_SETS','COLLATIONS','COLLATION_CHARACTER_SET_APPLICABILITY',
+		'COLUMNS','COLUMN_PRIVILEGES','ENGINES','EVENTS','FILES','GLOBAL_STATUS','GLOBAL_VARIABLES',
+		'KEY_COLUMN_USAGE','PARAMETERS','PARTITIONS','PLUGINS','PROCESSLIST','PROFILING','REFERENTIAL_CONSTRAINTS','ROUTINES','SCHEMATA','SCHEMA_PRIVILEGES',
+		'SESSION_STATUS','SESSION_VARIABLES','STATISTICS','TABLES','TABLESPACES','TABLE_CONSTRAINTS',
+		'TABLE_PRIVILEGES','TRIGGERS','USER_PRIVILEGES','VIEWS','INNODB_BUFFER_PAGE','INNODB_TRX',
+		'INNODB_BUFFER_POOL_STATS','INNODB_LOCK_WAITS','INNODB_CMPMEM','INNODB_CMP','INNODB_LOCKS',
+		'INNODB_CMPMEM_RESET','INNODB_CMP_RESET','INNODB_BUFFER_PAGE_LRU');
+	
+		$requete='
+				
+				SELECT DISTINCT TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_NAME NOT IN("'.implode('","', $Exos_list).'") AND TABLE_NAME NOT IN("'.implode('","', $tab).'")
+AND TABLE_NAME NOT LIKE "VIEW_%" AND TABLE_NAME NOT LIKE "TMP_%" GROUP BY TABLE_NAME ;
+				';
+		$_SESSION['requete']=$requete;
 		$result=$this->connexion->query($requete);
 		
 		if($result){
@@ -98,6 +118,34 @@ GROUP BY TABLE_NAME ORDER BY TABLE_NAME ASC';
 		}
 		
 	}
+
+/**
+ * Permet de récupérer tous les VHU actifs à ce jour
+ * [Centres_VHU_Actifs description]
+ */
+ public function Centres_VHU_Actifs($tab){
+$requete='
+
+SELECT DISTINCT A.ACT_ID, FIL_CODE, ACT_RAISON_SOCIALE,AGR_DATE_DEBUT,AGR_DATE_FIN,
+DATE(NOW()) FROM AGREMENT A INNER JOIN ACTEUR ACT
+ON A.ACT_ID=ACT.ACT_ID WHERE FIL_CODE="VHU" AND ACT_RAISON_SOCIALE="'.$tab.'" AND AGR_DATE_FIN>DATE(NOW()) ORDER BY ACT_RAISON_SOCIALE ASC;
+
+';
+
+
+$result=$this->connexion->query($requete)->rowCount();
+
+if($result==1){
+      return $result;
+
+}   else{
+	return null;
+
+   }
+
+}
+
+
 }
 
 

@@ -68,11 +68,12 @@ class controleur{
 		 * récupération de la première feuille du fichier Excel
 		 * @var PHPExcel_Worksheet $sheet
 		 */
-		$sheet = $objPHPExcel->getSheet(1);
+		$sheet = $objPHPExcel->getSheet(0);
 	
 		
 		$form.='
 				<div class="row">
+				<div class="col-md-12 col-md-pull-1">
 				<table border="1">';
 		$i=0;
 		$entete_tab="th";
@@ -84,7 +85,8 @@ class controleur{
 					';
 				
 				foreach ($row->getCellIterator() as $cell){
-					if($i<=7){
+					if($i<=7){//Si l'itérateur est inférieur au sept premiers résultats -> qui représenterons, les titres des collones du tableau HTML
+						//Alors on dit que se sont les titre sinon se sont les valeurs du tableau
 						$form.='<'.$entete_tab.'>'.$cell->getValue().'</'.$entete_tab.'>';
 					}
 					else {
@@ -107,6 +109,7 @@ class controleur{
 				$form.='
 		</table>
 			</div>
+						</div>
 		';
 				
 				return $form;
@@ -165,6 +168,91 @@ class controleur{
 		return $form;
 	}
 	
+	
+	public function question(){
+		$form="";
+		$form.='';
+		return $form;
+	}
+
+	public function VHU(){
+		$form="";
+
+		$form.='
+
+                    <h3 align="center" >Cliquez pour comparer</h3>
+			<button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour comparer</button>
+
+
+
+	<div id="display">
+				
+           <div class="row">
+				
+
+
+		       <div class="col-md-4 " >
+			       <div class="loader">	</div>
+					   </div>
+				
+
+
+				           <div class="col-md-4 col-md-push-1" >
+			                   <div class="loader">	</div>
+					       </div>
+				
+
+
+
+
+
+				<div class="col-md-4 col-md-push-2" >
+			       <div class="loader"></div>	
+		       </div>
+	     </div>
+				</div>
+				
+
+
+
+			<div id="maj_success" >
+				
+				<div class="alert alert-success">
+  <strong>Success!</strong> MAJ effectu&eacute;e.
+</div>
+			</div>
+				
+				
+
+
+
+				
+				
+				<div class="row" id="maj_fail">
+				<div class="col-md-4">
+				<div class="alert alert-danger">
+  <strong>OUUPPSSS!</strong> MAJ erreur.
+</div>
+				</div>
+
+
+				</div>
+
+<table id="non_Exist">
+<tr><th>Ces tables ne figurent pas dans la BDD Syderep</th></tr>
+
+
+
+
+
+</div>
+
+
+<script src="js/VHU.js"></script>
+
+		';
+		return $form;
+	}
 	
 	
 }
