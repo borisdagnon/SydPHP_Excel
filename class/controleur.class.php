@@ -239,7 +239,7 @@ class controleur{
 				</div>
 
 <table id="non_Exist">
-<tr><th>Ces tables ne figurent pas dans la BDD Syderep</th></tr>
+<tr><th>Ces centres VHU ne figurent pas dans la BDD Syderep</th></tr>
 
 
 

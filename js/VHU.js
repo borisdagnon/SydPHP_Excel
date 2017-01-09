@@ -8,7 +8,7 @@
 		$("#maj_success").hide("slow");
 		$("#maj_fail").hide("slow");
 	$("#display").show("slow");
-	
+	$("#non_Exist").hide();
 		
 	
 	
@@ -37,19 +37,8 @@ $i=0;
 
 $(data.live).each(function(index, value){
 $i++;
-/*
-$("<tr><td>"+$i+"        "+value[0]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[1]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[2]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[3]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[4]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[5]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[6]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[7]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[8]+"</td>").appendTo("#non_Exist");
-$("<td>"+value[9]+"</td></tr>").appendTo("#non_Exist");*/
 
-$("#non_Exist").append("<tr><td>"+value[0]+"</td>");
+$("#non_Exist").append("<tr><td>"+$i+"  "+value[0]+"</br>"+value[1]+"</td>");
 
 			});
 $("#non_Exist").append("</tr></table>");
