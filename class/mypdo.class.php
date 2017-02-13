@@ -65,13 +65,13 @@ GROUP BY TABLE_NAME
 	}
 	
 	/**
-	 * On va chercher le nombre de liens
+	 * On va chercher le nombre de liens et on soustrait 1
 	 * $param string $col_name
 	 * @return PDOStatement|NULL
 	 */
 	public function nb_liens($col_name){
 		
-		$requete='SELECT COUNT(COLUMN_NAME)-1
+		$requete='SELECT COUNT(COLUMN_NAME)-1,SUBSTRING(COLUMN_NAME,1,3)
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE COLUMN_NAME LIKE "'.$col_name.'"
 AND TABLE_SCHEMA="syderep_intcont"';
@@ -121,21 +121,47 @@ AND TABLE_NAME NOT LIKE "VIEW_%" AND TABLE_NAME NOT LIKE "TMP_%" GROUP BY TABLE_
 
 /**
  * Permet de récupérer tous les VHU actifs à ce jour
+ * On récupère les centres vhu du fichier ICPE qui n'existent pas dans la BDD
  * [Centres_VHU_Actifs description]
  */
- public function Centres_VHU_Actifs($tab){
+ public function Centres_VHU_Actifs(){
+/*AND ACT_RAISON_SOCIALE NOT IN ("BAILLET \"PIECES AUTO OCCASION")*/
 $requete='
 
-SELECT DISTINCT A.ACT_ID, FIL_CODE, ACT_RAISON_SOCIALE,A.SAC_CODE,ADR_CODE_POSTAL
-FROM ACTEUR A
-INNER JOIN AGREMENT AGR ON AGR.ACT_ID=A.ACT_ID
-INNER JOIN STATUT_ACTEUR ST_ACT ON ST_ACT.SAC_CODE=A.SAC_CODE
-WHERE FIL_CODE="VHU" AND ADR_CODE_POSTAL="'.$tab.'" AND A.SAC_CODE="ENREG" ;';
+SELECT DISTINCT
+ act.ACT_RAISON_SOCIALE ,
+ act.ACT_SIREN_SIRET ,
+ act.ACT_REFERENCE ,
+ act.ADR_CODE_POSTAL ,
+ act.ADR_LOCALITE ,
+ ins.FIL_CODE
+FROM ACTEUR act
+ JOIN INSCRIPTION ins ON ins.ACT_ID = act.ACT_ID
+ JOIN FILIERE fil ON fil.FIL_CODE = ins.FIL_CODE
+ JOIN STATUT_INSCRIPTION sin ON sin.SIN_CODE = ins.SIN_CODE
+ JOIN CATEGORIE_ACTEUR cac ON cac.CAC_ID = ins.CAC_ID
+ LEFT JOIN INS_TDN nn ON ins.INS_ID = nn.INS_ID
+ LEFT JOIN TYPE_DECLARANT tdn ON tdn.TDN_ID = nn.TDN_ID
+        AND tdn.FIL_CODE = ins.FIL_CODE
+ JOIN PAYS pay ON pay.PAY_CODE = act.PAY_CODE
+ LEFT JOIN CONTACT con_ref_act ON con_ref_act.ACT_ID = act.ACT_ID
+         AND con_ref_act.CON_IS_REFERENT = 1
+LEFT JOIN CONTACT con ON con.CON_ID = ins.INS_MODIFICATEUR
+ LEFT JOIN PROFIL_FILIERE pfi ON pfi.INS_ID = ins.INS_ID
+        AND pfi.PFI_IS_REFERENT = 1
+  LEFT JOIN  CONTACT con_ref_fil ON con_ref_fil.CON_ID = pfi.CON_ID AND con_ref_fil.ACT_ID = act.ACT_ID
+
+WHERE  sin.SIN_CODE = "INSCR"
+AND ins.FIL_CODE = "VHU"
+   AND cac.CAC_CODE = "DECIN"
+   AND tdn.TDN_CODE = "CENTRE_VHU"
+
+   ORDER BY act.ACT_RAISON_SOCIALE, act.ADR_CODE_POSTAL;';
 
 
-$result=$this->connexion->query($requete)->rowCount();
+$result=$this->connexion->query($requete);
 
-if($result==1){
+if($result){
       return $result;
 
 }   else{

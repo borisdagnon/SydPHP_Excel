@@ -81,7 +81,7 @@ $mypdo=new mypdo();
 	 	
 	 	
 	 	
-	 		//On récupère la colonne de la table de la ligne du fichier Excel qu'on parcours actuellement
+	 		//On récupère le champs principale de la table qu'on parcours
 	 		$requete=$mypdo->list_tables($sheet->getCell($columnA.$row)->getValue());
 	 	
 	 	
@@ -124,6 +124,21 @@ $mypdo=new mypdo();
 	 	
 	 	}
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
 /******************************************Procédure de rajout des tables non existantes dans le fichier Excel*************************************************/
@@ -223,7 +238,10 @@ $mypdo=new mypdo();
 		 		
 				$sheet->getCell($columnA.$row)->setValue($sheet->getCell($columnA.$row)->getValue());
 				$sheet->getCell($columnB.$row)->setValue($sheet->getCell($columnB.$row)->getValue());
-				$sheet->getCell($columnC.$row)->setValue($sheet->getCell($columnC.$row)->getValue());
+
+				/*$sheet->getCell($columnC.$row)->setValue($sheet->getCell($columnC.$row)->getValue());*/
+				$sheet->getCell($columnC.$row)->setValue($nb_liens[1]);
+
 				$sheet->getCell($columnD.$row)->setValue($sheet->getCell($columnD.$row)->getValue());
 				$sheet->getCell($columnE.$row)->setValue($sheet->getCell($columnE.$row)->getValue());
 				$sheet->getCell($columnF.$row)->setValue($sheet->getCell($columnF.$row)->getValue());
@@ -264,7 +282,7 @@ $mypdo=new mypdo();
 		
 			//On crée un objet Excel pour écrire dans le fichier
 		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-$objWriter->save('../uploads/Tables Syderep_V2.xlsx');//On sauvegarde dans le même emplacement
+$objWriter->save('../uploads/Tables Syderep_V3.xlsx');//On sauvegarde dans le même emplacement
 
 $data['success']=true;
 	

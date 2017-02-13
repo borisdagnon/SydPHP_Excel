@@ -65,7 +65,7 @@ class controleur{
 		
 		
 		/**
-		 * récupération de la première feuille du fichier Excel
+		 * rÃ©cupÃ©ration de la premiÃ¨re feuille du fichier Excel
 		 * @var PHPExcel_Worksheet $sheet
 		 */
 		$sheet = $objPHPExcel->getSheet(0);
@@ -85,7 +85,7 @@ class controleur{
 					';
 				
 				foreach ($row->getCellIterator() as $cell){
-					if($i<=7){//Si l'itérateur est inférieur au sept premiers résultats -> qui représenterons, les titres des collones du tableau HTML
+					if($i<=7){//Si l'itÃ©rateur est infÃ©rieur au sept premiers rÃ©sultats -> qui reprÃ©senterons, les titres des collones du tableau HTML
 						//Alors on dit que se sont les titre sinon se sont les valeurs du tableau
 						$form.='<'.$entete_tab.'>'.$cell->getValue().'</'.$entete_tab.'>';
 					}
@@ -176,6 +176,7 @@ class controleur{
 	}
 
 	public function VHU(){
+		var_dump($_SESSION['vhu_Bdd']) ;
 		$form="";
 
 		$form.='
@@ -239,7 +240,7 @@ class controleur{
 				</div>
 
 <table id="non_Exist">
-<tr><th>Ces centres VHU ne figurent pas dans la BDD Syderep</th></tr>
+<tr><th>Centres VHU de la BDD</th></tr>
 
 
 

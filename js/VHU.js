@@ -38,7 +38,7 @@ $i=0;
 $(data.live).each(function(index, value){
 $i++;
 
-$("#non_Exist").append("<tr><td>"+$i+"  "+value[0]+"</br>"+value[1]+"</td>");
+$("#non_Exist").append("<tr><td>"+$i+"   "+value+"</br>"+"</td>");
 
 			});
 $("#non_Exist").append("</tr></table>");
