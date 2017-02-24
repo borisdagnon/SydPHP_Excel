@@ -41,26 +41,26 @@ class upload extends controleur{
 			
 				$file=$_FILES['file'];
 				var_dump($file);
-				// Propriétés du fichier
+				// PropriÃ©tÃ©s du fichier
 				$file_name=$file['name'];
 				$file_tmp=$file['tmp_name'];
 				$file_size=$file['size'];
 				$file_error = $file['error'];
 				// Gestion de l'extension du fichier
 				
-				$file_ext=explode('.', $file_name);/* cette opération coupe la chaine de caractère à partir du point*/
+				$file_ext=explode('.', $file_name);/* cette opÃ©ration coupe la chaine de caractÃ¨re Ã  partir du point*/
 				
-				$nom_comparant='Tables Syderep_V2';
+				$nom_comparant='Tables Syderep_V4';
 				$nom_compare=$file_ext[0];
 				 
-				$file_ext=strtolower(end($file_ext));/*on prend la chaine qui est à la fin du tableau et on la met en minuscule*/
+				$file_ext=strtolower(end($file_ext));/*on prend la chaine qui est Ã  la fin du tableau et on la met en minuscule*/
 				
 				 
-				$allowed = array('xlsx');/*On défini les extensions autorisées dans un tableau*/
+				$allowed = array('xlsx');/*On dÃ©fini les extensions autorisÃ©es dans un tableau*/
 				 
 				
 					
-					if(in_array($file_ext, $allowed)){/*On vérifi si on a autorisé l'extension*/
+					if(in_array($file_ext, $allowed)){/*On vÃ©rifi si on a autorisÃ© l'extension*/
 						
 						if($nom_comparant==$nom_compare)
 						{
@@ -68,14 +68,14 @@ class upload extends controleur{
 				
 						if ($file_error===0)/* S'il n'y a pas d'erreur*/
 						{
-							if($file_size<=2097152){ /*On vérifi si le fichier est inférieur à 2MB*/
+							if($file_size<=2097152){ /*On vÃ©rifi si le fichier est infÃ©rieur Ã  2MB*/
 				
 								/* $file_name_new=uniqid('',true).'.'.$file_ext;/*On donne un nouveau nom unique au fichier*/
-								$file_name_new='Tables Syderep_V2'.'.'.$file_ext;
-								$file_destination='uploads/'.$file_name_new;/*On fait une concaténation avec le nom du nouveau fichier*/
+								$file_name_new='Tables Syderep_V4'.'.'.$file_ext;
+								$file_destination='uploads/'.$file_name_new;/*On fait une concatÃ©nation avec le nom du nouveau fichier*/
 								array_push($file,$file_destination);
 		
-								if (count(glob("uploads/*")) === 0 )/* Permet de savoir s'il y a déjà un fichier Excel dans le dossier uploads*/
+								if (count(glob("uploads/*")) === 0 )/* Permet de savoir s'il y a dÃ©jÃ  un fichier Excel dans le dossier uploads*/
 								 
 								{
 				
@@ -118,7 +118,7 @@ class upload extends controleur{
 				
 					}else {
 						
-						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V2.xlsx"</p><div>';
+						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V4.xlsx"</p><div>';
 						
 						
 					}
@@ -173,26 +173,26 @@ class upload extends controleur{
 					
 				$file=$_FILES['file'];
 				var_dump($file);
-				// Propriétés du fichier
+				// PropriÃ©tÃ©s du fichier
 				$file_name=$file['name'];
 				$file_tmp=$file['tmp_name'];
 				$file_size=$file['size'];
 				$file_error = $file['error'];
 				// Gestion de l'extension du fichier
 				
-				$file_ext=explode('.', $file_name);/* cette opération coupe la chaine de caractère à partir du point*/
+				$file_ext=explode('.', $file_name);/* cette opÃ©ration coupe la chaine de caractÃ¨re Ã  partir du point*/
 				
-				$nom_comparant='Tables Syderep_V2';
+				$nom_comparant='Tables Syderep_V4';
 				$nom_compare=$file_ext[0];
 					
-				$file_ext=strtolower(end($file_ext));/*on prend la chaine qui est à la fin du tableau et on la met en minuscule*/
+				$file_ext=strtolower(end($file_ext));/*on prend la chaine qui est Ã  la fin du tableau et on la met en minuscule*/
 				
 					
-				$allowed = array('xlsx');/*On défini les extensions autorisées dans un tableau*/
+				$allowed = array('xlsx');/*On dÃ©fini les extensions autorisÃ©es dans un tableau*/
 					
 				
 						
-					if(in_array($file_ext, $allowed)){/*On vérifi si on a autorisé l'extension*/
+					if(in_array($file_ext, $allowed)){/*On vÃ©rifi si on a autorisÃ© l'extension*/
 						
 						if($nom_comparant==$nom_compare)
 						{
@@ -202,14 +202,14 @@ class upload extends controleur{
 				
 						if ($file_error===0)/* S'il n'y a pas d'erreur*/
 						{
-							if($file_size<=2097152){ /*On vérifi si le fichier est inférieur à 2MB*/
+							if($file_size<=2097152){ /*On vÃ©rifi si le fichier est infÃ©rieur Ã  2MB*/
 				
 								/* $file_name_new=uniqid('',true).'.'.$file_ext;/*On donne un nouveau nom unique au fichier*/
-								$file_name_new='Tables Syderep_V2'.'.'.$file_ext;
-								$file_destination='uploads/'.$file_name_new;/*On fait une concaténation avec le nom du nouveau fichier*/
+								$file_name_new='Tables Syderep_V4'.'.'.$file_ext;
+								$file_destination='uploads/'.$file_name_new;/*On fait une concatÃ©nation avec le nom du nouveau fichier*/
 								array_push($file,$file_destination);
 				
-								if (count(glob("uploads/*")) == 1 )/* Permet de savoir s'il y a déjà un fichier Excel dans le dossier uploads*/
+								if (count(glob("uploads/*")) == 1 )/* Permet de savoir s'il y a dÃ©jÃ  un fichier Excel dans le dossier uploads*/
 									
 								{
 				
@@ -233,7 +233,7 @@ class upload extends controleur{
 				
 					}else 
 					{
-						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V2.xlsx"</p><div>';
+						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V4.xlsx"</p><div>';
 					}
 				}
 				else
@@ -260,7 +260,7 @@ class upload extends controleur{
 		$form="";
 		
 		
-		$file="uploads/Tables Syderep_V2.xlsx";
+		$file="uploads/Tables Syderep_V4.xlsx";
 		if(file_exists($file)){
 			header('Content-Description: File Transfert');
 			header('Content-Type: application/octet-stream');

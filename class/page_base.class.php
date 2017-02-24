@@ -49,7 +49,7 @@ class page_base {
 </dl>
 				
 				<dl>
-	<dt>Consulter fichier Excel</dt>
+	<dt>Consulter les Tables</dt>
 		<dd>
 			<ul>
 				
@@ -95,7 +95,7 @@ class page_base {
 	
 	public function header()
 	{
-		echo 'Mise à jour du fichier Excel';
+		echo 'Mise Ã  jour du fichier Excel';
 	}
 	
 	

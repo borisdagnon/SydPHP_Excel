@@ -10,11 +10,13 @@ $tab=array();
 $data['result']=array();
 $data['tables_exist']=array();
 $data['tables_result']=array();
+$data['result_final']=array();
 $mypdo=new mypdo();
+$mypdo_SydPHP=new mypdo_SydPHP_Excel();
 
-//On fait appel ‡ la bibliothËque
+//On fait appel √† la biblioth√®que
 	require_once '../class/PHPExcel/IOFactory.php';
-	$file='../uploads/Tables Syderep_V2.xlsx';
+	$file='../uploads/Tables Syderep_V4.xlsx';
 
 	// Chargement du fichier Excel
 	$objPHPExcel = PHPExcel_IOFactory::load($file);
@@ -25,7 +27,7 @@ $mypdo=new mypdo();
 	
 	/*****************************************************************************************/
 	/**
-	 * rÈcupÈration de la deuxiËme feuille du fichier Excel car l'index part de 0
+	 * r√©cup√©ration de la prm√®re feuille du fichier Excel
 	 * @var PHPExcel_Worksheet $sheet
 	 */
 	$sheet = $objPHPExcel->getSheet(0);
@@ -33,10 +35,6 @@ $mypdo=new mypdo();
 	/******************************************************************************************/
 	
 	
-	
-	
-
-	 //On parcours la colonne A pour rÈcupÈrer les libellÈs des tables
 	 
 	$BStyle = array(
 			'borders' => array(
@@ -46,6 +44,7 @@ $mypdo=new mypdo();
 			)
 	);
 
+//On cr√©e les variables n√©cessaires
 	$i=0;
 	$columnA = 'A';
 	$columnB='B';
@@ -56,23 +55,23 @@ $mypdo=new mypdo();
 	$columnG='G';
 	$columnH='H';
 	
-	$lastRow = $sheet->getHighestDataRow();
+	$lastRow = $sheet->getHighestDataRow();//On prends le num√©ro de ligne le plus √©lev√©
 
 	
 	
 	
 	 	for ($row = 2; $row <= $lastRow; $row++) {
-	 		//On rÈcupËre ce qu'il y a dans chaque ligne du fichier Excel
+	 		//On r√©cup√®re ce qu'il y a dans chaque ligne du fichier Excel
 	 	
 	 		if($sheet->getCell($columnA.$row)->getValue()!=null){
-	 	
+	 	//On r√©cup√®re toutes les tables du fichier Excel
 	 			array_push($data['result'],[$sheet->getCell($columnA.$row)->getValue(),
 	 					$sheet->getCell($columnB.$row)->getValue(),
 	 					$sheet->getCell($columnC.$row)->getValue(),
 	 					$sheet->getCell($columnD.$row)->getValue(),
 	 					$sheet->getCell($columnE.$row)->getValue(),
 	 					$sheet->getCell($columnF.$row)->getValue(),
-	 					$sheet->getCell($columnG.$row)->getValue()]);//Permet de voir ce qu'on rÈcupËre dans un tableau
+	 					$sheet->getCell($columnG.$row)->getValue()]);//Permet de voir ce qu'on r√©cup√®re dans un tableau
 	 	
 	 	
 	 		}
@@ -81,15 +80,15 @@ $mypdo=new mypdo();
 	 	
 	 	
 	 	
-	 		//On rÈcupËre le champs principale de la table qu'on parcours
+	 		//On v√©rifi par cette requ√™te l'existance de la table dans la BDD
 	 		$requete=$mypdo->list_tables($sheet->getCell($columnA.$row)->getValue());
 	 	
 	 	
-	 		//On parcours la requÍte
+	 		//On parcours la requ√™te
 	 		while($r = $requete->fetch()){
-	 			$requete=$mypdo->nb_liens($r[1]);/*On rÈcupËre le nombre de liens,
-	 			c'est ‡ dire le nombre de fois qu'on retrouve la clÈ de la colonne dans d'autres tables et on soustrait 1
-	 			Ètant donnÈ que Áa comptera la table d'origine*/
+	 			$requete=$mypdo->nb_liens($r[1]);/*On r√©cup√®re le nombre de liens,
+	 			c'est √† dire le nombre de fois qu'on retrouve la cl√© de la colonne dans d'autres tables et on soustrait 1
+	 			√©tant donn√© que √ßa comptera la table d'origine*/
 	 				
 	 			while($nb_liens = $requete->fetch()){
 	 	
@@ -112,7 +111,7 @@ $mypdo=new mypdo();
 	 						)
 	 						);
 	 					
-	 					
+	 					//On rajoute le nombre de liens √† la fin du tableau
 	 				array_push($data['result'][$i],$nb_liens[0]);
 	 				$i++;
 	 	
@@ -141,14 +140,14 @@ $mypdo=new mypdo();
 
 
 	
-/******************************************ProcÈdure de rajout des tables non existantes dans le fichier Excel*************************************************/
+/******************************************Proc√©dure de rajout des tables non existantes dans le fichier Excel*************************************************/
 	
 	
 	$i=0;
 	foreach ($data['result'] as $r){
 		
 			array_push($data['tables_exist'], $r[0]);
-			array_push($tab, $r[0]);//On insËre dans un tableau les tables qui existent dÈj‡
+			array_push($tab, $r[0]);//On ins√®re dans un tableau les tables qui existent d√©j√†
 		$i++;
 		
 		
@@ -156,30 +155,45 @@ $mypdo=new mypdo();
 	
 	
 	
-	$tables=$mypdo->tables($tab);//On procËde ‡ la requÍte pour filtrer les tables dÈj‡ existantes
+	$tables=$mypdo->tables($tab);//On proc√®de √† la requ√™te pour filtrer les tables d√©j√† existantes
 	
-	while($t = $tables->fetch()){//On parcours la requÍte pour rÈcupÈrer les rÈsultats dans un tableau
+	while($t = $tables->fetch()){//On parcours la requ√™te pour r√©cup√©rer les r√©sultats dans un tableau
+        
 		array_push($data['tables_result'], $t[0]);
 	}
-	
+/*
+
+	if(!empty($data['tables_result'])){
+            $info=$mypdo_SydPHP->info_fichier();
+        while($i = $info->fetch()){
+            $i
+        }
+           
+        
+        }
+        */
 	/******************************************Compter le nombre de lignes non null*****************************************************/
-	$lignes=0;
+	$lignes=1;
+    $data['nb_ligne']=array();
 	for ($row = 2; $row <= $lastRow; $row++) {
 		if($sheet->getCell($columnA.$row)->getValue()!=null){
-			$lignes++;//IncrÈmentation des lignes
+			$lignes++;
 		}
 	
-	
 	}
-	$row=$lignes+1;//On passe le nombre de ligne plus la ligne suivante non remplie ‡ $row
+	$row=$lignes+1;//On passe le nombre de ligne plus la ligne suivante non remplie √† $row
+$data['nb_ligne']=$row;
 	/***********************************************************************************************/
 	
 		foreach ($data['tables_result'] as $d){//On parcours le nombre de tables dans le tableau PHP
 			
-			$sheet->getCell($columnA.$row)->setValue($d);//On insËre une valeur ‡ la cellule
+			$sheet->getCell($columnA.$row)->setValue($d);//On ins√®re une valeur √† la cellule
 			
 			$objPHPExcel->getActiveSheet()->getStyle($columnH.$row)->applyFromArray($BStyle);
-			//On donne la couleur verte ‡ la cellule dans laquelle on vient d'insÈrer une valeur
+            
+            
+            
+			//On donne la couleur verte √† la cellule dans laquelle on vient d'ins√©rer une valeur
 			$objPHPExcel->getActiveSheet()->getStyle($columnA.$row)->applyFromArray(
 					array('fill'=>
 			
@@ -188,7 +202,7 @@ $mypdo=new mypdo();
 					)
 					);
 			
-			$row++;//IncrÈmentation des lignes pour l'ajout
+			$row++;//Incr√©mentation des lignes pour l'ajout
 				
 		
 		
@@ -196,93 +210,51 @@ $mypdo=new mypdo();
 
 	
 	
+	$data['result_final']=array();
 	
 	
-	
-	
-	
-	/*******************************************On parcours ‡ nouveau pour finaliser la couleur et les bordures**************************************************/
+	/*******************************************On parcours √† nouveau pour finaliser la couleur et les bordures**************************************************/
 
 	for ($row = 2; $row <= $lastRow; $row++) {
-		//On rÈcupËre ce qu'il y a dans chaque ligne du fichier Excel
+		//On r√©cup√®re ce qu'il y a dans chaque ligne du fichier Excel
 		
 		if($sheet->getCell($columnA.$row)->getValue()!=null){
 			 
-			array_push($data['result'],[$sheet->getCell($columnA.$row)->getValue(),
+			array_push($data['result_final'],[$sheet->getCell($columnA.$row)->getValue(),
 					$sheet->getCell($columnB.$row)->getValue(),
 					$sheet->getCell($columnC.$row)->getValue(),
 					$sheet->getCell($columnD.$row)->getValue(),
 					$sheet->getCell($columnE.$row)->getValue(),
 					$sheet->getCell($columnF.$row)->getValue(),
-					$sheet->getCell($columnG.$row)->getValue()]);//Permet de voir ce qu'on rÈcupËre dans un tableau
-					 
+					$sheet->getCell($columnG.$row)->getValue()]);//Permet de voir ce qu'on r√©cup√®re dans un tableau
 					 
 		}
 			
-			
-		 
-		 
-		 
-		//On rÈcupËre la colonne de la table de la ligne du fichier Excel qu'on parcours actuellement
-		$requete=$mypdo->list_tables($sheet->getCell($columnA.$row)->getValue());
-		 
-		 
-		//On parcours la requÍte
-		while($r = $requete->fetch()){
-			$requete=$mypdo->nb_liens($r[1]);/*On rÈcupËre le nombre de liens,
-			c'est ‡ dire le nombre de fois qu'on retrouve la clÈ de la colonne dans d'autres tables et on soustrait 1
-			Ètant donnÈ que Áa comptera la table d'origine*/
-	
-			while($nb_liens = $requete->fetch()){
-				 
-		 		
-				$sheet->getCell($columnA.$row)->setValue($sheet->getCell($columnA.$row)->getValue());
-				$sheet->getCell($columnB.$row)->setValue($sheet->getCell($columnB.$row)->getValue());
-
-				/*$sheet->getCell($columnC.$row)->setValue($sheet->getCell($columnC.$row)->getValue());*/
-				$sheet->getCell($columnC.$row)->setValue($nb_liens[1]);
-
-				$sheet->getCell($columnD.$row)->setValue($sheet->getCell($columnD.$row)->getValue());
-				$sheet->getCell($columnE.$row)->setValue($sheet->getCell($columnE.$row)->getValue());
-				$sheet->getCell($columnF.$row)->setValue($sheet->getCell($columnF.$row)->getValue());
-				$sheet->getCell($columnG.$row)->setValue($sheet->getCell($columnG.$row)->getValue());
-				$sheet->getCell($columnH.$row)->setValue($nb_liens[0]);
-		 		
-		 		
-				
-				$objPHPExcel->getActiveSheet()->getStyle($columnH.$row)->applyFromArray($BStyle);
-				
-				$objPHPExcel->getActiveSheet()->getStyle($columnH.$row)->applyFromArray(
-						array('fill'=>
-									
-								array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'color' =>
-										array('rgb' => '92D050') )
-						)
-						);
-		 		
-		 		
-				array_push($data['result'][$i],$nb_liens[0]);
-				$i++;
-				
-				 
-				 
-				 
-				 
-			}
-		}
-			
-			
-		 
-	}
+			$requete=$mypdo->list_tables($sheet->getCell($columnA.$row)->getValue());
+        
+			//On parcours la requ√™te
+	 		while($r = $requete->fetch()){
+	 			$requete=$mypdo->nb_liens($r[1]);/*On r√©cup√®re le nombre de liens,
+	 			c'est √† dire le nombre de fois qu'on retrouve la cl√© de la colonne dans d'autres tables et on soustrait 1
+	 			√©tant donn√© que √ßa comptera la table d'origine*/
+	 				
+	 			while($nb_liens = $requete->fetch()){
+                     $sheet->getCell($columnC.$row)->setValue($nb_liens[1]);
+                    $sheet->getCell($columnH.$row)->setValue($nb_liens[0]);
+                   
+                }
+            }
+        
+		 	}
 	
 	
 
 	
-/*******************************************…criture dans le fichier et sauvegarde******************************************************/
+/*******************************************√âcriture dans le fichier et sauvegarde******************************************************/
 		
-			//On crÈe un objet Excel pour Ècrire dans le fichier
+			//On cr√©e un objet Excel pour √©crire dans le fichier
 		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-$objWriter->save('../uploads/Tables Syderep_V3.xlsx');//On sauvegarde dans le mÍme emplacement
+$objWriter->save('../uploads/Tables Syderep_V4.xlsx');//On sauvegarde dans le m√™me emplacement
 
 $data['success']=true;
 	

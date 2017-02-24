@@ -18,11 +18,6 @@ if(isset($_SESSION['type']) && isset($_SESSION['id']))
 
 }
 $site->afficher();
+
 ?>
-<script>
 
-    setTimeout("location.reload(true);", 9000);
-
-
-</script>
-<?php 

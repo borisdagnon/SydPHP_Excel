@@ -102,7 +102,6 @@ AND TABLE_SCHEMA="syderep_intcont"';
 		'INNODB_CMPMEM_RESET','INNODB_CMP_RESET','INNODB_BUFFER_PAGE_LRU');
 	
 		$requete='
-				
 				SELECT DISTINCT TABLE_NAME
 FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_NAME NOT IN("'.implode('","', $Exos_list).'") AND TABLE_NAME NOT IN("'.implode('","', $tab).'")

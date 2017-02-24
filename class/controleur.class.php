@@ -45,9 +45,11 @@ class controleur{
 		$form="";
 		
 		$form.='
-				<h1><i>Bienvenu sur le site de mise &agrave; jour Excel</i><h1>
+				<h2><i>Bienvenu sur SydPHP_Excel</i></h2>
 				
-				<p>Ici vous pouvez mettre votre fichier Tables Sysderep_V2 &agrave; jour <p>
+				<p>Ici vous pouvez mettre votre fichier Tables Syderep_V4 facilement<p>
+                <p>Si vou n\'avez pas encore importer votre fichier vous pouvez le faire en allant sur Acceuil
+            puis dans Importer ou remplacer si vous désirez remplacer le fichier déjà présent.</p>
 				
 				';
 		
@@ -58,7 +60,7 @@ class controleur{
 		$form="";
 		
 		require_once 'PHPExcel/IOFactory.php';
-		$file='uploads/Tables Syderep_V2.xlsx';
+		$file='uploads/Tables Syderep_V4.xlsx';
 		
 		// Chargement du fichier Excel
 		$objPHPExcel = PHPExcel_IOFactory::load($file);
@@ -121,8 +123,16 @@ class controleur{
 		$form="";
 		
 		$form.='
-				<h3 align="center" >Cliquez pour mettre 	&agrave; jour le fichier</h3>
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour MAJ</button>
+				<div class="row">
+<div class="col-md-5">
+                    <p>Cet outil permet de récupérer les nouvelles tables de la base de données</p>
+                    <p>Le fichier est mis à jour et il est possible de l\'exporter dans l\'onglet Modifier fichier Excel -> Exporter Excel </p>
+                </div>
+                <div class="col-md-5">
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour comparer</button>
+            </div>
+            </div>
+			
 				
 				
 				<div id="display">
@@ -176,13 +186,23 @@ class controleur{
 	}
 
 	public function VHU(){
-		var_dump($_SESSION['vhu_Bdd']) ;
+		
 		$form="";
 
 		$form.='
-
-                    <h3 align="center" >Cliquez pour comparer</h3>
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour comparer</button>
+        
+<div class="row">
+<div class="col-md-5">
+                    <p>Cet outil permet de comparer les centres VHU de la BDD Syderep et du fichier ICPE</p>
+                    <p>Le fichier est mis à jour et les VHU du fichier ICPE qui ne sont pas présents dans la BDD</p>
+                </div>
+                <div class="col-md-5">
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour comparer</button>
+            </div>
+            </div>
+            
+            
+			
 
 
 
