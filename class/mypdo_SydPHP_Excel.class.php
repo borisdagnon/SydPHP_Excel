@@ -1,6 +1,6 @@
 <?php
-
-class mypdo{
+      
+class mypdo_SydPHP_Excel extends PDO{
 private $utilisateur='root';
 	private $mdp='';
 	private $bdd='sydphp_excel';
@@ -21,10 +21,10 @@ private $utilisateur='root';
 			
 		}
 		catch(PDOException $ex){
-			echo'NO';
-			$message.= $message;
-			$message.= $ex->getCode();
-			$message.= $ex->getMessage();
+			 echo 'hote: ' . $hote . ' ' . $_SERVER['DOCUMENT_ROOT'] . '<br />';
+            echo 'Erreur : ' . $ex->getMessage() . '<br />';
+            echo 'N° : ' . $ex->getCode();
+            $this->connexion = false;
 		}
 		return $message;
 	}
@@ -43,6 +43,42 @@ private $utilisateur='root';
 	}
     
     
+    public function interrupteur()
+    {
+        $requete='SELECT * FROM interrupteur';
+        $result=$this->connexion->query($requete);
+        if($result){
+            return $result;
+        }else
+        {
+            return null;
+        }
+    }
+    
+    public function maj_interrupteur($num)
+    {
+        $requete='UPDATE interrupteur SET I_ID="'.$num.'"';
+        $result=$this->connexion->query($requete);
+        if($result){
+            return $result;
+        }else
+        {
+            return null;
+        }
+    }
+    
+     public function couleur($num)
+    {
+        $requete='SELECT * FROM couleur WHERE C_ID="'.$num.'"';
+        $result=$this->connexion->query($requete);
+        if($result){
+            return $result;
+        }else
+        {
+            return null;
+        }
+    }
+    
     
     public function info_fichier()
     {
@@ -55,5 +91,58 @@ private $utilisateur='root';
             return null;
         }
     }
+    
+     public function maj_info_fichier()
+    {
+        date_default_timezone_set('Europe/Paris');
+        $date = new Datetime();
+        $date=$date->format('Y-m-d H:i:s');
+        
+        $requete='INSERT INTO historique SET HIS_DATETIME="'.$date.'", F_ID="1" ';
+        $result=$this->connexion->query($requete);
+        if($result){
+            return $result;
+        }else
+        {
+            return null;
+        }
+    }
+    
+    public function version()
+    {
+        $requete='SELECT * FROM version';
+        $result=$this->connexion->query($requete);
+        if($result){
+            return $result;
+        }else
+        {
+            return null;
+        }
+    }
+    
+     public function final_name()
+    {
+        $requete='SELECT * FROM nom_Final';
+        $result=$this->connexion->query($requete);
+        if($result){
+            return $result;
+        }else
+        {
+            return null;
+        }
+    }
+    
+    public function maj_final_name($name)
+    {
+        $requete='UPDATE table nom_Final SET nom="'.$name.'"';
+        $result=$this->connexion->query($requete);
+        if($result){
+            return $result;
+        }else
+        {
+            return null;
+        }
+    }
+    
     
 }

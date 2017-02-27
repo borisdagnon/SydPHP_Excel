@@ -4,8 +4,9 @@ class upload extends controleur{
 	private $db;
 	
 	public function __construct(){
-		$db=new mypdo();
-		$vpdo=$db->__get('connexion');
+		include_once('mypdo_SydPHP_Excel.class.php');
+		$this->vpdo=new mypdo_SydPHP_Excel();
+		$db=$this->vpdo->connexion;
 	}
 	
 	
@@ -50,7 +51,14 @@ class upload extends controleur{
 				
 				$file_ext=explode('.', $file_name);/* cette opération coupe la chaine de caractère à partir du point*/
 				
-				$nom_comparant='Tables Syderep_V4';
+			
+			 $nom_fichier="";
+$nom_final=$this->vpdo->final_name();
+while($n_f = $nom_final->fetch()){
+    $nom_fichier=$n_f[0];
+}
+
+				$nom_comparant=$nom_fichier;
 				$nom_compare=$file_ext[0];
 				 
 				$file_ext=strtolower(end($file_ext));/*on prend la chaine qui est à la fin du tableau et on la met en minuscule*/
@@ -71,7 +79,8 @@ class upload extends controleur{
 							if($file_size<=2097152){ /*On vérifi si le fichier est inférieur à 2MB*/
 				
 								/* $file_name_new=uniqid('',true).'.'.$file_ext;/*On donne un nouveau nom unique au fichier*/
-								$file_name_new='Tables Syderep_V4'.'.'.$file_ext;
+								
+								$file_name_new=$nom_fichier.'.'.$file_ext;
 								$file_destination='uploads/'.$file_name_new;/*On fait une concaténation avec le nom du nouveau fichier*/
 								array_push($file,$file_destination);
 		
@@ -118,7 +127,7 @@ class upload extends controleur{
 				
 					}else {
 						
-						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V4.xlsx"</p><div>';
+						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "'.$nom_fichier.'.xlsx"</p><div>';
 						
 						
 					}
@@ -182,7 +191,14 @@ class upload extends controleur{
 				
 				$file_ext=explode('.', $file_name);/* cette opération coupe la chaine de caractère à partir du point*/
 				
-				$nom_comparant='Tables Syderep_V4';
+				
+				$nom_fichier="";
+$nom_final=$this->vpdo->final_name();
+while($n_f = $nom_final->fetch()){
+    $nom_fichier=$n_f[0];
+}
+
+				$nom_comparant=$nom_fichier;
 				$nom_compare=$file_ext[0];
 					
 				$file_ext=strtolower(end($file_ext));/*on prend la chaine qui est à la fin du tableau et on la met en minuscule*/
@@ -203,15 +219,16 @@ class upload extends controleur{
 						if ($file_error===0)/* S'il n'y a pas d'erreur*/
 						{
 							if($file_size<=2097152){ /*On vérifi si le fichier est inférieur à 2MB*/
+						
 				
 								/* $file_name_new=uniqid('',true).'.'.$file_ext;/*On donne un nouveau nom unique au fichier*/
-								$file_name_new='Tables Syderep_V4'.'.'.$file_ext;
-								$file_destination='uploads/'.$file_name_new;/*On fait une concaténation avec le nom du nouveau fichier*/
+								$file_name_new=$nom_fichier.'.'.$file_ext;
+								
+								 $file_destination='uploads/'.$file_name_new;/*On fait une concaténation avec le nom du nouveau fichier*/
+								
 								array_push($file,$file_destination);
 				
-								if (count(glob("uploads/*")) == 1 )/* Permet de savoir s'il y a déjà un fichier Excel dans le dossier uploads*/
-									
-								{
+								
 				
 									if(move_uploaded_file($file_tmp, $file_destination)){
 										$form.='<div class="row" id="upload_message"><p>Le fichier a &eacute;t&eacute; remplac&eacute; avec succ&egrave;s</p><div>';
@@ -223,7 +240,6 @@ class upload extends controleur{
 										
 									}
 										
-								}
 								
 				
 							}
@@ -233,7 +249,7 @@ class upload extends controleur{
 				
 					}else 
 					{
-						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "Tables Syderep_V4.xlsx"</p><div>';
+						$form	.='<div class="row" id="upload_message"><p>Vous devez s&eacute;lectionner un fichier: "'.$nom_fichier.'.xlsx"</p><div>';
 					}
 				}
 				else
@@ -258,9 +274,13 @@ class upload extends controleur{
 	
 	public function export(){
 		$form="";
+		$nom_fichier="";
+$nom_final=$this->vpdo->final_name();
+while($n_f = $nom_final->fetch()){
+    $nom_fichier=$n_f[0];
+}
 		
-		
-		$file="uploads/Tables Syderep_V4.xlsx";
+		$file="uploads/".$nom_fichier.".xlsx";
 		if(file_exists($file)){
 			header('Content-Description: File Transfert');
 			header('Content-Type: application/octet-stream');

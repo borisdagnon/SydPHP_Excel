@@ -1,6 +1,6 @@
 <?php
 
-class mypdo{
+class mypdo extends PDO {
 	private $utilisateur='syderep_ro_ademe';
 	private $mdp='syderep_ro_ademe';
 	private $bdd='syderep_intcont';
@@ -20,10 +20,10 @@ class mypdo{
 			
 		}
 		catch(PDOException $ex){
-			echo'NO';
-			$message.= $message;
-			$message.= $ex->getCode();
-			$message.= $ex->getMessage();
+		 echo 'hote: ' . $hote . ' ' . $_SERVER['DOCUMENT_ROOT'] . '<br />';
+            echo 'Erreur : ' . $ex->getMessage() . '<br />';
+            echo 'N° : ' . $ex->getCode();
+            $this->connexion = false;
 		}
 		return $message;
 	}
@@ -35,7 +35,8 @@ class mypdo{
 	 */
 	public function __get($prop){
 		switch ($prop){
-			case 'connexion': return $this->connexion;
+			case 'connexion': 
+                return $this->connexion;
 			break;
 		}
 		

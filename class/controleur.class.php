@@ -1,13 +1,18 @@
 <?php
-
-class controleur{
 	
+class controleur{
 	private $vpdo;
 	private $db;
+    private $db2;
+    private $vpdo2;
 	
 	public function __construct(){
-		$db=new mypdo();
-		$vpdo=$db->__get('connexion');
+		include_once('mypdo_SydPHP_Excel.class.php');
+		$this->vpdo2 = new mypdo_SydPHP_Excel();
+		 $this->vpdo = new mypdo();
+        
+        $this->db   = $this->vpdo->connexion;
+        $this->db2 = $this->vpdo2->connexion;
 	}
 	
 	public function connexion()
@@ -60,7 +65,14 @@ class controleur{
 		$form="";
 		
 		require_once 'PHPExcel/IOFactory.php';
-		$file='uploads/Tables Syderep_V4.xlsx';
+        
+        $nom_fichier="";
+$nom_final=$this->vpdo2->final_name();
+while($n_f = $nom_final->fetch()){
+    $nom_fichier=$n_f[0];
+}
+$file='uploads/'.$nom_fichier.'.xlsx';
+	
 		
 		// Chargement du fichier Excel
 		$objPHPExcel = PHPExcel_IOFactory::load($file);
