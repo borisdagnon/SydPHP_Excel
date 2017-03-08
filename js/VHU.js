@@ -9,7 +9,9 @@
 		$("#maj_fail").hide("slow");
 	$("#display").show("slow");
 	$("#non_Exist").hide();
+        $(".tab_haut").hide();
 		
+             
 	
 	
 			var formData = {
@@ -38,19 +40,20 @@ $i=0;
 $(data.live).each(function(index, value){
 $i++;
 
-$("#non_Exist").append("<tr><td>"+$i+"   "+value+"</br>"+"</td>");
-
+$("#non_Exist").append("<tr><td>"+$i+"  &nbsp;  "+value[0]+"</br>"+"</td><td>"+value[1]+"</br>"+"</td>");
 			});
 $("#non_Exist").append("</tr></table>");
 
 					$("#display").hide("slow");
-			
+                                        
 					$("#maj_success").show("slow");
-
+$("#tab_entete").show();
 $("#non_Exist").show();
+$(".tab_haut").show();
 				}
 				else
 				{
+                                    $("#display").hide("slow");
 					$("#maj_fail").show("slow");
 				}
 				

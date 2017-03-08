@@ -119,59 +119,36 @@ AND TABLE_NAME NOT LIKE "VIEW_%" AND TABLE_NAME NOT LIKE "TMP_%" GROUP BY TABLE_
 		
 	}
 
-/**
- * Permet de récupérer tous les VHU actifs à ce jour
- * On récupère les centres vhu du fichier ICPE qui n'existent pas dans la BDD
- * [Centres_VHU_Actifs description]
- */
- public function Centres_VHU_Actifs(){
-/*AND ACT_RAISON_SOCIALE NOT IN ("BAILLET \"PIECES AUTO OCCASION")*/
-$requete='
-
-SELECT DISTINCT
- act.ACT_RAISON_SOCIALE ,
- act.ACT_SIREN_SIRET ,
- act.ACT_REFERENCE ,
- act.ADR_CODE_POSTAL ,
- act.ADR_LOCALITE ,
- ins.FIL_CODE
-FROM ACTEUR act
- JOIN INSCRIPTION ins ON ins.ACT_ID = act.ACT_ID
- JOIN FILIERE fil ON fil.FIL_CODE = ins.FIL_CODE
- JOIN STATUT_INSCRIPTION sin ON sin.SIN_CODE = ins.SIN_CODE
- JOIN CATEGORIE_ACTEUR cac ON cac.CAC_ID = ins.CAC_ID
- LEFT JOIN INS_TDN nn ON ins.INS_ID = nn.INS_ID
- LEFT JOIN TYPE_DECLARANT tdn ON tdn.TDN_ID = nn.TDN_ID
-        AND tdn.FIL_CODE = ins.FIL_CODE
- JOIN PAYS pay ON pay.PAY_CODE = act.PAY_CODE
- LEFT JOIN CONTACT con_ref_act ON con_ref_act.ACT_ID = act.ACT_ID
-         AND con_ref_act.CON_IS_REFERENT = 1
-LEFT JOIN CONTACT con ON con.CON_ID = ins.INS_MODIFICATEUR
- LEFT JOIN PROFIL_FILIERE pfi ON pfi.INS_ID = ins.INS_ID
-        AND pfi.PFI_IS_REFERENT = 1
-  LEFT JOIN  CONTACT con_ref_fil ON con_ref_fil.CON_ID = pfi.CON_ID AND con_ref_fil.ACT_ID = act.ACT_ID
-
-WHERE  sin.SIN_CODE = "INSCR"
-AND ins.FIL_CODE = "VHU"
-   AND cac.CAC_CODE = "DECIN"
-   AND tdn.TDN_CODE = "CENTRE_VHU"
-
-   ORDER BY act.ACT_RAISON_SOCIALE, act.ADR_CODE_POSTAL;';
-
-
-$result=$this->connexion->query($requete);
-
-if($result){
-      return $result;
-
-}   else{
-	return null;
-
-   }
-
-}
-
-
+	
+	
+	
+	public function verif_Siren_Siret($siren_siret)
+	{
+		$requete="SELECT ACT_RAISON_SOCIALE,REPLACE(ACT_SIREN_SIRET,' ','') FROM ACTEUR WHERE ACT_SIREN_SIRET=REPLACE('".$siren_siret."',' ','')";
+		$result=$this->connexion->query($requete);
+		if($result){
+			return $result;
+		}else{
+			return null;
+		}
+	}
+        
+        
+        /**
+         * Cette requête permet de savoir si ce centre VHU existe
+         * @param type $siren_siret
+         * @return int
+         */
+        public function exists_vhu($siren_siret){
+            $requete="SELECT ACT_RAISON_SOCIALE,REPLACE(ACT_SIREN_SIRET,' ','') FROM ACTEUR WHERE ACT_SIREN_SIRET=REPLACE('".$siren_siret."',' ','')";
+            $result=$this->connexion->query($requete);
+            if($result){
+                return $result->rowCount();
+            }else{
+                return $result->rowCount();
+            }
+           
+        }
 
 
 

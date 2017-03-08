@@ -271,8 +271,13 @@ $file='uploads/'.$nom_fichier.'.xlsx';
 
 				</div>
 
+
+<table id="tab_entete">
+<tr><th class="tab_haut">Ces Centres VHu n\'existent pas dans la BDD Syderep</th></tr>
+</table>
 <table id="non_Exist">
-<tr><th>Centres VHU de la BDD</th></tr>
+
+<tr><th>Société</th> <th>SIREN/SIRET</th> </tr>
 
 
 
