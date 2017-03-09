@@ -239,31 +239,6 @@ dl:hover a{
 
 
 
-/*****************Footer*****************/
-
-#footer {
-	height:30px;
-  position: relative;
-  right: 0;
-  bottom: 0;
-
-  left: 0;
-  padding: 2rem;
-  background-color: #bdc3c7;
-  text-align: center;
-}
-#footer p{
-	line-height:10px;
-}
-
-/*****************************************************/
-
-
-
-
-
-
-
 
 
 
@@ -418,8 +393,13 @@ td.user-name {
 
 
 
+/*********************Btn Export*************************/
 
+#export{
+ display: none;   
+}
 
+/*******************************************************/
 
 
 

@@ -10,6 +10,7 @@
 	$("#display").show("slow");
 	$("#non_Exist").hide();
         $(".tab_haut").hide();
+        $("#export").hide();
 		
              
 	
@@ -50,7 +51,10 @@ $("#non_Exist").append("</tr></table>");
 $("#tab_entete").show();
 $("#non_Exist").show();
 $(".tab_haut").show();
-				}
+		$("#export").show();		
+            
+                            
+                            }
 				else
 				{
                                     $("#display").hide("slow");

@@ -197,6 +197,14 @@ $file='uploads/'.$nom_fichier.'.xlsx';
 		return $form;
 	}
 
+        
+        
+      
+                
+                
+                
+                
+                
 	public function VHU(){
 		
 		$form="";
@@ -280,9 +288,9 @@ $file='uploads/'.$nom_fichier.'.xlsx';
 <tr><th>Société</th> <th>SIREN/SIRET</th> </tr>
 
 
-
-
-
+ <div class="col-md-5">
+                <a href="export_VHU.php"><button type="button" class="btn btn-success btn-lg btn-block" id="export">Exporter</button></a>
+            </div>
 </div>
 
 
@@ -291,6 +299,26 @@ $file='uploads/'.$nom_fichier.'.xlsx';
 		';
 		return $form;
 	}
+        
+      
+		    public function export_VHU(){
+		$form="";
+		$nom_fichier="";
+		
+		$file="uploads/VHU_Syderep_copie.xlsx";
+		if(file_exists($file)){
+			header('Content-Description: File Transfert');
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename="'.basename($file).'"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($file));
+			readfile($file);
+			exit;
+		}
+          }
+	
 	
 	
 }

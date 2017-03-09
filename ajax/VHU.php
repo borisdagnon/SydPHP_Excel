@@ -117,7 +117,7 @@ $objWriter = new PHPExcel_Writer_Excel2007($VHU_Syderep);
                 if($part1==true && $part2==true && $part3==true){
                     $data['success']=true;
                 }
-                 
+                
               
 echo json_encode($data);
 
