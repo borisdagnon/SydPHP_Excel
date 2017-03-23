@@ -11,6 +11,8 @@
 	$("#non_Exist").hide();
         $(".tab_haut").hide();
         $("#export").hide();
+        $("#date_maj_VHU").hide();
+        $("#info").hide();
 		
              
 	
@@ -49,9 +51,11 @@ $("#non_Exist").append("</tr></table>");
                                         
 					$("#maj_success").show("slow");
 $("#tab_entete").show();
-$("#non_Exist").show();
-$(".tab_haut").show();
-		$("#export").show();		
+    $("#non_Exist").show();
+        $(".tab_haut").show();
+            $("#export").show();
+            $("#info").show();
+                $("#date_maj_VHU").append("<p>"+Date().getTime()+"</p>");
             
                             
                             }

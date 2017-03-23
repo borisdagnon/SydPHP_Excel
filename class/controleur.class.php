@@ -216,9 +216,11 @@ $file='uploads/'.$nom_fichier.'.xlsx';
                     <p>Cet outil permet de comparer les centres VHU de la BDD Syderep et du fichier ICPE</p>
                     <p>Le fichier est mis à jour et les VHU du fichier ICPE qui ne sont pas présents dans la BDD</p>
                 </div>
+                
                 <div class="col-md-5">
                 <button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Cliquez pour comparer</button>
             </div>
+            <div id="date_maj_VHU"></div>
             </div>
             
             
@@ -289,8 +291,15 @@ $file='uploads/'.$nom_fichier.'.xlsx';
 
 
  <div class="col-md-5">
+ 
+<div class="row" id="info">
+        <div class="col-md-8">
+		<div class="alert alert-info">
+     <p>Vous pouvez exoperter les centres VHU existants en cliquant sur le boutton suivant !</p></div>
+         </div>
+  </div>
                 <a href="export_VHU.php"><button type="button" class="btn btn-success btn-lg btn-block" id="export">Exporter</button></a>
-            </div>
+           
 </div>
 
 
